@@ -12,6 +12,7 @@ struct Calculator__My_First_App_App: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+            // lovepreet Kaur
         }
     }
 }
