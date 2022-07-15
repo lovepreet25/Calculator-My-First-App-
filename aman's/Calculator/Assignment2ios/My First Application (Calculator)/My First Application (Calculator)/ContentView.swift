@@ -45,6 +45,7 @@ enum CalButtons: String {
     
     
 }
+
 enum mathOperations {
    case add, subtract, multiply, divide, reminder , square, cube, squareRoot, log , Xpart , none
 }
@@ -104,7 +105,7 @@ struct ContentView: View {
     }
 
     }
-    // fuction for setting the width of button
+   // adding fuctionallity to the buttons
     func didTap (button: CalButtons){
         switch button {
         case .add, .subtract, .divide, .multiply,.reminder, .square, .cube, .squareRoot, .log, .Xpart, .equal:
@@ -183,7 +184,7 @@ struct ContentView: View {
             
         
     }
-    
+    // fuction for setting the width of button
     func buttonWidth (item: CalButtons) -> CGFloat{
         // case for making clear  and equal button wider
         if item == .clear{
@@ -196,7 +197,7 @@ struct ContentView: View {
         return (UIScreen.main.bounds.width - ( 5*12))/5
     }
 
-    // adding a function to perform task
+
     
    
 
