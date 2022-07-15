@@ -57,7 +57,8 @@ struct ContentView: View {
     
     // two dementional array for setting ap the values of buttons
     let buttons: [[CalButtons]]=[
-        [.cube, .square, .zero, .reminder, .add], // adding additional functionals
+        // adding additional functionals
+        [.cube, .square, .zero, .reminder, .add],
         [.squareRoot,.seven, .eight, .nine, .subtract],
         [ .log, .four, .five, .six, .multiply],
         [.Xpart, .three, .two, .one, .divide, ],
@@ -139,7 +140,9 @@ struct ContentView: View {
             }else if button == .Xpart {
                 self.curtOperation = .Xpart
                 self.runningnum = Int (self.value) ?? 0
-            }else if button == .equal {
+                }
+            // functionality for equal button
+            else if button == .equal {
                 let runningnum = self.runningnum
                 let curtvalue = Int(self.value) ?? 0
                 switch self.curtOperation {
@@ -153,6 +156,7 @@ struct ContentView: View {
                     self.value = "\(runningnum / curtvalue)"
                 case .reminder:
                     self.value =  "\(runningnum % curtvalue)"
+                    // using built in functions for the extra functions
                 case .square :
                     self.value = "\(pow( Decimal(curtvalue), 2))"
                 case .cube:
@@ -172,6 +176,7 @@ struct ContentView: View {
             }
         case .clear:
             self.value = "0"
+            // setting function for numerical buttons
         default:
             let num = button.rawValue
             if self.value == "0"{
