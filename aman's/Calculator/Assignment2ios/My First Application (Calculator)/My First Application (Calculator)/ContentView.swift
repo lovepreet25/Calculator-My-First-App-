@@ -41,11 +41,17 @@ enum CalButtons: String {
             return Color(.lightGray)
         }
     }
+    
+    
+}
+enum mathOperations {
+   case add, subtract, multiply, divide, percent, square, cube, squareRoot, cubeRoot, Xpart , none
 }
 
-
 struct ContentView: View {
-    
+    @State var value = "0"
+    @State var curtOperation: mathOperations = .none
+    @ State var runningnum = 0
     
     // two dementional array for setting ap the values of buttons
     let buttons: [[CalButtons]]=[
@@ -64,8 +70,7 @@ struct ContentView: View {
                 //setting a text display
                 HStack{
                     Spacer()
-                        .frame(width:250.0, height: 0.0)
-                    Text("0")
+                    Text(value)
                         .bold()
                         .font(.system(size: 50))
                         .foregroundColor(.white)
@@ -73,9 +78,10 @@ struct ContentView: View {
                  .padding()
                 // setting buttons on display
                 ForEach (buttons, id: \.self) {row in
-                    HStack (spacing: 14){
+                    HStack (spacing: 11){
                         ForEach(row, id: \.self) { item in
                             Button(action: {
+                                self.didTap(button: item)
                                 
                                 
                             }, label: {
@@ -98,6 +104,91 @@ struct ContentView: View {
 
     }
     // fuction for setting the width of button
+    func didTap (button: CalButtons){
+        switch button {
+        case .add, .subtract, .divide, .multiply,.percent, .square, .cube, .squareRoot, .cubeRoot, .Xpart, .equal:
+            if button == .add {
+                self.curtOperation = .add
+                self.runningnum = Int (self.value) ?? 0
+            }else if button == .subtract {
+                self.curtOperation = .subtract
+                self.runningnum = Int (self.value) ?? 0
+            }else if button == .multiply{
+                self.curtOperation = .multiply
+                self.runningnum = Int (self.value) ?? 0
+            }else if button == .divide {
+                self.curtOperation = .divide
+                self.runningnum = Int (self.value) ?? 0
+            }else if button == .percent {
+                self.curtOperation = .percent
+                self.runningnum = Int (self.value) ?? 0
+            }else if button == .square {
+                self.curtOperation = .square
+                self.runningnum = Int (self.value) ?? 0
+                let runningnum = self.runningnum
+                let curtvalue = Int(self.value) ?? 0
+                self.value = "\(pow( Decimal(curtvalue), 2))"
+            }else if button == .cube {
+                self.curtOperation = .cube
+                self.runningnum = Int (self.value) ?? 0
+            }else if button == .squareRoot {
+                self.curtOperation = .squareRoot
+                self.runningnum = Int (self.value) ?? 0
+            }else if button == .cubeRoot {
+                self.curtOperation = .cubeRoot
+                self.runningnum = Int (self.value) ?? 0
+            }else if button == .Xpart {
+                self.curtOperation = .Xpart
+                self.runningnum = Int (self.value) ?? 0
+            }else if button == .equal {
+                let runningnum = self.runningnum
+                let curtvalue = Int(self.value) ?? 0
+                switch self.curtOperation {
+                case .add:
+                    self.value = "\(runningnum + curtvalue)"
+                case .subtract:
+                    self.value = "\(runningnum - curtvalue)"
+                case .multiply:
+                    self.value = "\(runningnum * curtvalue)"
+                case .divide:
+                    self.value = "\(runningnum / curtvalue)"
+                case .percent:
+                    self.value =  "\(curtvalue / 100)"
+                case .square:
+                    break
+                case .cube:
+                    self.value = "\(pow( Decimal(curtvalue), 3))"
+                case .squareRoot:
+                    self.value = "\( sqrt(Double(curtvalue)))"
+                case .cubeRoot:
+                    self.value = "\(runningnum + curtvalue)"
+                case .Xpart:
+                    self.value = "\(1 / curtvalue)"
+                case .none:
+                    break
+                    }
+            }
+            //if button != .equal{
+                //self.value = "0"
+            //}
+        case .clear:
+            self.value = "0"
+        default:
+            let num = button.rawValue
+            if self.value == "0"{
+                value = num
+            }
+            else {
+                self.value = "\(self.value)\(num)"
+            }
+        }
+            
+        
+    }
+    public func calculatePercentage()->Double{
+        let val = runningnum
+        return Double(val) / 100.0
+    }
     func buttonWidth (item: CalButtons) -> CGFloat{
         // case for making clear button wider
         if item == .clear{
@@ -110,6 +201,8 @@ struct ContentView: View {
         return (UIScreen.main.bounds.width - ( 5*12))/5
     }
 
+    // adding a function to perform task
+    
    
 
 struct ContentView_Previews: PreviewProvider {
