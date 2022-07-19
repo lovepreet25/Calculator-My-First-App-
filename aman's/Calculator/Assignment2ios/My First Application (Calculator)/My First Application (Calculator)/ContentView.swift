@@ -1,4 +1,4 @@
-//
+// i used ios academy resources for the setting buttons structures
 //  ContentView.swift
 //  My First Application (Calculator)
 //
